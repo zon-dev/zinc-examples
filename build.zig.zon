@@ -2,10 +2,6 @@
     .name = "zinc-examples",
     .version = "0.0.1",
     .dependencies = .{
-        // .zinc = .{
-        //     .url = "https://github.com/zon-dev/zinc/archive/refs/tags/0.0.1-alpha2.tar.gz",
-        //     .hash = "1220851a097a05005e7448e95ae7a84e4b954ff199fc549a1cab7bc086c6d7d6764f",
-        // },
         .zinc = .{
             .path = "../zinc",
         },
