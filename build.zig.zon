@@ -2,9 +2,6 @@
     .name = "zinc-examples",
     .version = "0.0.1",
     .dependencies = .{
-        .zinc = .{
-            .version = "0.0.1",
-        },
     },
     .paths = .{
         "",
