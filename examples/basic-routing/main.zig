@@ -1,14 +1,14 @@
 const z = @import("zinc");
 
 pub fn main() !void {
-    var engine = try z.Engine.new(.{ .port = 8080 });
+    var zinc = try z.Engine.new(.{ .port = 8080 });
 
-    var router = &engine.router;
-    try router.get("/hello", hello);
+    var router = &zinc.router;
+    try router.get("/", hello_world);
 
-    try engine.run();
+    try zinc.run();
 }
 
-fn hello(_: *z.Context, _: *z.Request, res: *z.Response) anyerror!void {
-    try res.send("Hello!");
+fn hello_world(_: *z.Context, _: *z.Request, res: *z.Response) anyerror!void {
+    try res.sendBody("Hello world!");
 }

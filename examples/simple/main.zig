@@ -20,15 +20,15 @@ pub fn main() !void {
 
 fn hello(_: *z.Context, _: *z.Request, res: *z.Response) anyerror!void {
     std.debug.print("Hello!\n", .{});
-    try res.send("Hello!");
+    try res.sendBody("Hello!");
 }
 
 fn hi(_: *z.Context, _: *z.Request, res: *z.Response) anyerror!void {
     std.debug.print("hi!\n", .{});
-    try res.send("hi!");
+    try res.sendBody("hi!");
 }
 
 fn ping(_: *z.Context, _: *z.Request, res: *z.Response) anyerror!void {
     std.debug.print("pong!\n", .{});
-    try res.send("pong!");
+    try res.sendBody("pong!");
 }
