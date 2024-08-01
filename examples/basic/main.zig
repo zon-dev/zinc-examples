@@ -1,7 +1,7 @@
 const std = @import("std");
-const zinc = @import("zinc");
+const z = @import("zinc");
 pub fn main() !void {
-    var engine = try zinc.Engine.default();
-    std.debug.print("Listening on: 127.0.0.1:{any}\n", .{engine.getPort()});
-    _ = try engine.run();
+    var zinc = try z.Engine.default();
+    std.debug.print("Listening on: {any}\n", .{zinc.getAddress()});
+    try zinc.run();
 }

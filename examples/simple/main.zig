@@ -2,7 +2,7 @@ const std = @import("std");
 const z = @import("zinc");
 
 pub fn main() !void {
-    var engine = try z.Engine.new(.{ .port = 8080 });
+    var zinc = try z.Engine.init(.{ .port = 8080 });
 
     std.debug.print("Listening on: {any}\n", .{engine.getAddress()});
 
