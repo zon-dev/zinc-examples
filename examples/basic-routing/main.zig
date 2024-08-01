@@ -1,7 +1,7 @@
 const z = @import("zinc");
 
 pub fn main() !void {
-    var engine = try z.Engine.new(8080);
+    var engine = try z.Engine.new(.{ .port = 8080 });
 
     var router = &engine.router;
     try router.get("/hello", hello);

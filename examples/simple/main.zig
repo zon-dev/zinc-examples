@@ -2,10 +2,9 @@ const std = @import("std");
 const z = @import("zinc");
 
 pub fn main() !void {
-    var engine = try z.Engine.default();
-    // var engine = try z.Engine.new(8080);
+    var engine = try z.Engine.new(.{ .port = 8080 });
 
-    std.debug.print("Listening on: 127.0.0.1:{any}\n", .{engine.getPort()});
+    std.debug.print("Listening on: {any}\n", .{engine.getAddress()});
 
     var router = &engine.router;
     try router.get("/hello", hello);
