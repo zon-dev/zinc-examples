@@ -35,7 +35,7 @@ pub fn build(b: *std.Build) void {
             .root_source_file = b.path(execfg.src),
             .target = target,
             .optimize = optimize,
-            });
+        });
 
         exe.root_module.addImport("zinc", zinc.module("zinc"));
 
@@ -45,10 +45,8 @@ pub fn build(b: *std.Build) void {
         if (b.args) |args| {
             run_cmd.addArgs(args);
         }
-        const step_name =  "run-"++exe_name;
+        const step_name = "run-" ++ exe_name;
         const run_step = b.step(step_name, "Run the app");
         run_step.dependOn(&run_cmd.step);
     }
-
-
 }
