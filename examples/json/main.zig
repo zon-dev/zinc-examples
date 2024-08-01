@@ -5,7 +5,6 @@ pub fn main() !void {
 
     var router = &engine.router;
     try router.get("/", hello_world);
-
     _ = try engine.run();
 }
 
