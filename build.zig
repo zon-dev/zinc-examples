@@ -18,6 +18,7 @@ pub fn build(b: *std.Build) void {
         .{ .name = "simple", .src = "examples/simple/main.zig" },
         .{ .name = "json", .src = "examples/json/main.zig" },
         .{ .name = "ping", .src = "examples/ping/main.zig" },
+        .{ .name = "not-found", .src = "examples/not-found/main.zig" },
     }) |execfg| {
         const exe_name = execfg.name;
 

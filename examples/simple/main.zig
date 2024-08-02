@@ -4,9 +4,9 @@ const z = @import("zinc");
 pub fn main() !void {
     var zinc = try z.Engine.init(.{ .port = 8080 });
 
-    std.debug.print("Listening on: {any}\n", .{engine.getAddress()});
+    std.debug.print("Listening on: {any}\n", .{zinc.getAddress()});
 
-    var router = &engine.router;
+    var router = zinc.getRouter();
     try router.get("/hello", hello);
     try router.post("/hi", hi);
     try router.add(std.http.Method.GET, "/ping", ping);
@@ -15,7 +15,7 @@ pub fn main() !void {
         std.debug.print("{s} | {s}\n", .{ @tagName(r.http_method), r.path });
     }
 
-    _ = try engine.run();
+    _ = try zinc.run();
 }
 
 fn hello(_: *z.Context, _: *z.Request, res: *z.Response) anyerror!void {
