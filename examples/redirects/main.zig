@@ -1,7 +1,8 @@
 const z = @import("zinc");
+const std = @import("std");
 
 pub fn main() !void {
-    var zinc = try z.Engine.init(.{ .port = 8080 });
+    var zinc = try z.init(.{ .port = 8080 });
 
     var router = zinc.getRouter();
     try router.get("/test", redirect);
@@ -17,7 +18,7 @@ fn redirect(ctx: *z.Context, _: *z.Request, _: *z.Response) anyerror!void {
 }
 fn redirectToGitHub(ctx: *z.Context, _: *z.Request, _: *z.Response) anyerror!void {
     // Redirect to https://github.com, with a 301 status code
-    try ctx.redirect(.moved_permanently,"https://github.com");
+    try ctx.redirect(.moved_permanently, "https://github.com");
 }
 
 fn helloWorld(ctx: *z.Context, _: *z.Request, _: *z.Response) anyerror!void {

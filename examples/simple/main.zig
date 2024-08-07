@@ -2,7 +2,7 @@ const std = @import("std");
 const z = @import("zinc");
 
 pub fn main() !void {
-    var zinc = try z.Engine.init(.{
+    var zinc = try z.init(.{
         .allocator = std.heap.page_allocator,
         .port = 8080,
     });
