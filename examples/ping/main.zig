@@ -1,14 +1,14 @@
-const z = @import("zinc");
+const zinc = @import("zinc");
 
 pub fn main() !void {
-    var zinc = try z.init(.{ .port = 8080 });
+    var z = try zinc.init(.{ .port = 8080 });
 
-    var router = zinc.getRouter();
+    var router = z.getRouter();
     try router.get("/ping", pong);
 
-    try zinc.run();
+    try z.run();
 }
 
-fn pong(ctx: *z.Context, _: *z.Request, _: *z.Response) anyerror!void {
+fn pong(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
     try ctx.Text(.{}, "pong!");
 }

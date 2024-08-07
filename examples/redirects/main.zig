@@ -1,26 +1,26 @@
-const z = @import("zinc");
+const zinc = @import("zinc");
 const std = @import("std");
 
 pub fn main() !void {
-    var zinc = try z.init(.{ .port = 8080 });
+    var z = try zinc.init(.{ .port = 8080 });
 
-    var router = zinc.getRouter();
+    var router = z.getRouter();
     try router.get("/test", redirect);
     try router.get("/github", redirectToGitHub);
     try router.get("/hello", helloWorld);
 
-    try zinc.run();
+    try z.run();
 }
 
-fn redirect(ctx: *z.Context, _: *z.Request, _: *z.Response) anyerror!void {
+fn redirect(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
     // Redirect to /hello, with a 302 status code
     try ctx.redirect(.found, "/hello");
 }
-fn redirectToGitHub(ctx: *z.Context, _: *z.Request, _: *z.Response) anyerror!void {
+fn redirectToGitHub(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
     // Redirect to https://github.com, with a 301 status code
     try ctx.redirect(.moved_permanently, "https://github.com");
 }
 
-fn helloWorld(ctx: *z.Context, _: *z.Request, _: *z.Response) anyerror!void {
+fn helloWorld(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
     try ctx.Text(.{}, "Hello world!");
 }

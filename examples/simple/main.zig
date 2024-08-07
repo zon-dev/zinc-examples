@@ -1,15 +1,15 @@
 const std = @import("std");
-const z = @import("zinc");
+const zinc = @import("zinc");
 
 pub fn main() !void {
-    var zinc = try z.init(.{
+    var z = try zinc.init(.{
         .allocator = std.heap.page_allocator,
         .port = 8080,
     });
 
-    std.debug.print("Listening on: {any}\n", .{zinc.getAddress()});
+    std.debug.print("Listening on: {any}\n", .{z.getAddress()});
 
-    var router = zinc.getRouter();
+    var router = z.getRouter();
     try router.get("/hello", hello);
     try router.post("/hi", hi);
     try router.add(&.{ .GET, .POST }, "/ping", pong);
@@ -20,20 +20,20 @@ pub fn main() !void {
         }
     }
 
-    try zinc.run();
+    try z.run();
 }
 
-fn hello(ctx: *z.Context, _: *z.Request, _: *z.Response) anyerror!void {
+fn hello(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
     std.debug.print("Hello!\n", .{});
     try ctx.Text(.{}, "Hello!");
 }
 
-fn hi(ctx: *z.Context, _: *z.Request, _: *z.Response) anyerror!void {
+fn hi(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
     std.debug.print("hi!\n", .{});
     try ctx.Text(.{}, "hi!");
 }
 
-fn pong(ctx: *z.Context, _: *z.Request, _: *z.Response) anyerror!void {
+fn pong(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
     std.debug.print("pong!\n", .{});
     try ctx.Text(.{}, "pong!");
 }

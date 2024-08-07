@@ -1,15 +1,15 @@
-const z = @import("zinc");
+const zinc = @import("zinc");
 
 pub fn main() !void {
-    var zinc = try z.init(.{ .port = 8080 });
+    var z = try zinc.init(.{ .port = 8080 });
 
-    var catchers = zinc.getCatchers();
+    var catchers = z.getCatchers();
     try catchers.put(.not_found, notFound);
 
-    try zinc.run();
+    try z.run();
 }
 
-fn notFound(ctx: *z.Context, _: *z.Request, _: *z.Response) anyerror!void {
+fn notFound(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
     try ctx.HTML(.{
         .status = .not_found,
     }, "<h1>404 Not Found</h1>");

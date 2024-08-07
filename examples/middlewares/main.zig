@@ -1,24 +1,24 @@
-const z = @import("zinc");
+const zinc = @import("zinc");
 const std = @import("std");
 
 pub fn main() !void {
-    var zinc = try z.init(.{ .port = 8080 });
+    var z = try zinc.init(.{ .port = 8080 });
 
-    _ = try zinc.use(.{ .handler_fn = logger });
+    _ = try z.use(.{ .handler_fn = logger });
 
-    var router = zinc.getRouter();
+    var router = z.getRouter();
     try router.get("/", helloWorld);
 
-    try zinc.run();
+    try z.run();
 }
 
-fn helloWorld(ctx: *z.Context, _: *z.Request, _: *z.Response) anyerror!void {
+fn helloWorld(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
     try ctx.JSON(.{}, .{ .message = "Hello, World!" });
 }
 
-fn logger() z.HandlerFn {
+fn logger() zinc.HandlerFn {
     return struct {
-        fn handle(ctx: *z.Context, _: *z.Request, _: *z.Response) anyerror!void {
+        fn handle(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
             const t = std.time.milliTimestamp();
             std.time.sleep(1);
             // before request
