@@ -21,6 +21,7 @@ pub fn build(b: *std.Build) void {
         .{ .name = "ping", .src = "examples/ping/main.zig" },
         .{ .name = "not-found", .src = "examples/not-found/main.zig" },
         .{ .name = "redirects", .src = "examples/redirects/main.zig" },
+        .{ .name = "grouping-routes", .src = "examples/grouping-routes/main.zig" },
     }) |execfg| {
         const exe_name = execfg.name;
 

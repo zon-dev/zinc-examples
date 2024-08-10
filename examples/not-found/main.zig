@@ -4,7 +4,7 @@ pub fn main() !void {
     var z = try zinc.init(.{ .port = 8080 });
 
     var catchers = z.getCatchers();
-    try catchers.put(.not_found, notFound);
+    try catchers.setNotFound(notFound);
 
     try z.run();
 }
