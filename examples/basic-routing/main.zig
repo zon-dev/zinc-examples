@@ -10,5 +10,5 @@ pub fn main() !void {
 }
 
 fn helloWorld(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
-    try ctx.Text(.{}, "Hello world!");
+    try ctx.text(.{}, "Hello world!");
 }

@@ -21,19 +21,19 @@ pub fn main() !void {
 }
 
 fn api(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
-    try ctx.JSON(.{}, .{
+    try ctx.json(.{}, .{
         .message = "api home",
     });
 }
 
 fn v1(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
-    try ctx.JSON(.{}, .{
+    try ctx.json(.{}, .{
         .version = "v1",
     });
 }
 
 fn v2(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
-    try ctx.JSON(.{}, .{
+    try ctx.json(.{}, .{
         .version = "v2",
     });
 }

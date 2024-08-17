@@ -22,5 +22,5 @@ fn redirectToGitHub(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) any
 }
 
 fn helloWorld(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
-    try ctx.Text(.{}, "Hello world!");
+    try ctx.text(.{}, "Hello world!");
 }

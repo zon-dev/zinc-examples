@@ -25,15 +25,15 @@ pub fn main() !void {
 
 fn hello(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
     std.debug.print("Hello!\n", .{});
-    try ctx.Text(.{}, "Hello!");
+    try ctx.text(.{}, "Hello!");
 }
 
 fn hi(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
     std.debug.print("hi!\n", .{});
-    try ctx.Text(.{}, "hi!");
+    try ctx.text(.{}, "hi!");
 }
 
 fn pong(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
     std.debug.print("pong!\n", .{});
-    try ctx.Text(.{}, "pong!");
+    try ctx.text(.{}, "pong!");
 }

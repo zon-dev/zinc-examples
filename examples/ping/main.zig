@@ -10,5 +10,5 @@ pub fn main() !void {
 }
 
 fn pong(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
-    try ctx.Text(.{}, "pong!");
+    try ctx.text(.{}, "pong!");
 }

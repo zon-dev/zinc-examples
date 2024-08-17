@@ -10,7 +10,7 @@ pub fn main() !void {
 }
 
 fn notFound(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
-    try ctx.HTML(.{
+    try ctx.html(.{
         .status = .not_found,
     }, "<h1>404 Not Found</h1>");
 }
