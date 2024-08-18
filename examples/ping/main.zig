@@ -9,6 +9,6 @@ pub fn main() !void {
     try z.run();
 }
 
-fn pong(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
-    try ctx.text(.{}, "pong!");
+fn pong(ctx: *zinc.Context) anyerror!void {
+    try ctx.text("pong!", .{});
 }

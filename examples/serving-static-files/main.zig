@@ -7,7 +7,7 @@ pub fn main() !void {
     var router = z.getRouter();
 
     try router.get("/", index);
-    try router.add(&.{.GET, .HEAD}, "/assets", assets);
+    try router.add(&.{ .GET, .HEAD }, "/assets", assets);
 
     for (router.getRoutes().items) |route| {
         std.debug.print("Route: {s}\n", .{route.path});
@@ -16,12 +16,12 @@ pub fn main() !void {
     try z.run();
 }
 
-pub fn index(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
-    try ctx.file(.{}, "examples/serving-static-files/index.html");
+pub fn index(ctx: *zinc.Context) anyerror!void {
+    try ctx.file("examples/serving-static-files/index.html", .{});
 }
 
-pub fn assets(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
-    ctx.dir(.{}, "examples/serving-static-files/assets") catch {
-        try ctx.text(.{.status = .not_found}, "Not found");
+pub fn assets(ctx: *zinc.Context) anyerror!void {
+    ctx.dir("examples/serving-static-files/assets", .{}) catch {
+        try ctx.text("Not found", .{ .status = .not_found });
     };
 }

@@ -12,15 +12,15 @@ pub fn main() !void {
     try z.run();
 }
 
-fn redirect(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
+fn redirect(ctx: *zinc.Context) anyerror!void {
     // Redirect to /hello, with a 302 status code
     try ctx.redirect(.found, "/hello");
 }
-fn redirectToGitHub(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
+fn redirectToGitHub(ctx: *zinc.Context) anyerror!void {
     // Redirect to https://github.com, with a 301 status code
     try ctx.redirect(.moved_permanently, "https://github.com");
 }
 
-fn helloWorld(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
-    try ctx.text(.{}, "Hello world!");
+fn helloWorld(ctx: *zinc.Context) anyerror!void {
+    try ctx.text("Hello world!", .{});
 }

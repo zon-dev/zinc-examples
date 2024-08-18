@@ -9,6 +9,6 @@ pub fn main() !void {
     try z.run();
 }
 
-fn helloWorld(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
-    try ctx.json(.{}, .{ .message = "Hello, World!" });
+fn helloWorld(ctx: *zinc.Context) anyerror!void {
+    try ctx.json(.{ .message = "Hello, World!" }, .{});
 }

@@ -16,11 +16,11 @@ pub fn main() !void {
     try z.run();
 }
 
-fn helloWorld(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
-    try ctx.json(.{}, .{ .message = "Hello, World!" });
+fn helloWorld(ctx: *zinc.Context) anyerror!void {
+    try ctx.json(.{ .message = "Hello, World!" }, .{});
 }
 
-fn logger(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
+fn logger(ctx: *zinc.Context) anyerror!void {
     const t = std.time.milliTimestamp();
     std.debug.print("logger1\n", .{});
 
@@ -32,7 +32,7 @@ fn logger(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void
     std.debug.print("latency: {}\n", .{latency});
 }
 
-fn logger2(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
+fn logger2(ctx: *zinc.Context) anyerror!void {
     try ctx.next();
     std.debug.print("logger2\n", .{});
 }

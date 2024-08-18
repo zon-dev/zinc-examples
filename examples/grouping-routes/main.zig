@@ -20,20 +20,20 @@ pub fn main() !void {
     try z.run();
 }
 
-fn api(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
-    try ctx.json(.{}, .{
+fn api(ctx: *zinc.Context) anyerror!void {
+    try ctx.json(.{
         .message = "api home",
-    });
+    }, .{});
 }
 
-fn v1(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
-    try ctx.json(.{}, .{
+fn v1(ctx: *zinc.Context) anyerror!void {
+    try ctx.json(.{
         .version = "v1",
-    });
+    }, .{});
 }
 
-fn v2(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
-    try ctx.json(.{}, .{
+fn v2(ctx: *zinc.Context) anyerror!void {
+    try ctx.json(.{
         .version = "v2",
-    });
+    }, .{});
 }

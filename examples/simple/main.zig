@@ -23,17 +23,17 @@ pub fn main() !void {
     try z.run();
 }
 
-fn hello(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
+fn hello(ctx: *zinc.Context) anyerror!void {
     std.debug.print("Hello!\n", .{});
-    try ctx.text(.{}, "Hello!");
+    try ctx.text("Hello!", .{});
 }
 
-fn hi(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
+fn hi(ctx: *zinc.Context) anyerror!void {
     std.debug.print("hi!\n", .{});
-    try ctx.text(.{}, "hi!");
+    try ctx.text("hi!", .{});
 }
 
-fn pong(ctx: *zinc.Context, _: *zinc.Request, _: *zinc.Response) anyerror!void {
+fn pong(ctx: *zinc.Context) anyerror!void {
     std.debug.print("pong!\n", .{});
-    try ctx.text(.{}, "pong!");
+    try ctx.text("pong!", .{});
 }
