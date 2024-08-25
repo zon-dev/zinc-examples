@@ -25,6 +25,7 @@ pub fn build(b: *std.Build) void {
         .{ .name = "serving-static-files", .src = "examples/serving-static-files/main.zig" },
         .{ .name = "favicon", .src = "examples/favicon/main.zig" },
         .{ .name = "query-and-post-form", .src = "examples/query-and-post-form/main.zig" },
+        .{ .name = "query-parameters", .src = "examples/query-parameters/main.zig" },
     }) |execfg| {
         const exe_name = execfg.name;
 
