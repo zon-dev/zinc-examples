@@ -5,22 +5,28 @@ pub fn main() !void {
     var z = try zinc.init(.{ .port = 8080 });
 
     var router = z.getRouter();
-    // /post?id=1234&page=1&message=hello&message=world
-    try router.post("/post", postForm);
+    try router.post("/post", queryAndForm);
 
     try z.run();
 }
 
-fn postForm(ctx: *zinc.Context) anyerror!void {
-    const ids = ctx.queryValues("id") orelse return try ctx.text("id not found", .{});
-
+/// POST /post?id=1234&message=hello&message=world HTTP/1.1
+/// Content-Type: application/x-www-form-urlencoded
+/// 
+/// name:jack
+/// friend:mike
+/// 
+fn queryAndForm(ctx: *zinc.Context) anyerror!void {
+    const query_map = ctx.queryMap().?;
+    const ids = query_map.get("id").?;
     const id = ids.items[0];
-    std.debug.print("id: {s}\n", .{id});
+    const messages = query_map.get("message").?;
 
-    const messages = ctx.query("message") orelse return try ctx.text("message not found", .{});
-    for (messages.items) |message| {
-        std.debug.print("message: {s}\n", .{message});
-    }
+    const form = ctx.postFormMap().?; // form is a map
+    const name = form.get("name").?;
+    const friend = form.get("friend").?;
 
-    try ctx.text("hello", .{});
+    const bf = try std.fmt.allocPrint(std.heap.page_allocator, "id: {s}\nname: {s} \nfriend: {s}\nmessages: {s} {s}", .{ id, name, friend, messages.items[0],messages.items[1] });
+
+    try ctx.text(bf, .{});
 }
