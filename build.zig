@@ -17,6 +17,7 @@ pub fn build(b: *std.Build) void {
         .{ .name = "basic-routing", .src = "examples/basic-routing/main.zig" },
         .{ .name = "simple", .src = "examples/simple/main.zig" },
         .{ .name = "json", .src = "examples/json/main.zig" },
+        .{ .name = "map-as-query-parameters", .src = "examples/map-as-query-parameters/main.zig" },
         .{ .name = "middlewares", .src = "examples/middlewares/main.zig" },
         .{ .name = "ping", .src = "examples/ping/main.zig" },
         .{ .name = "not-found", .src = "examples/not-found/main.zig" },
