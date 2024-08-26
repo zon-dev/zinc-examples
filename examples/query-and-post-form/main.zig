@@ -21,7 +21,7 @@ fn queryAndForm(ctx: *zinc.Context) anyerror!void {
 
     const messages: std.ArrayList([]const u8) = try ctx.queryValues("message");
 
-    const form = ctx.postFormMap().?; // form is a map
+    const form = ctx.getPostFormMap().?; // form is a map
     const name = form.get("name").?;
     const friend = form.get("friend").?;
 
