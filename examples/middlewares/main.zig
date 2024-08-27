@@ -11,7 +11,22 @@ pub fn main() !void {
     try z.use(middleware);
 
     var router = z.getRouter();
+
     try router.get("/", helloWorld);
+    try router.get("/", logger);
+    try router.get("/", logger2);
+    try router.post("/", logger2);
+
+    try router.use("*", logger);
+
+    for (router.getRoutes().items) |route| {
+        for (route.methods) |method| {
+            std.debug.print("route {s} method: {any}\r\n", .{ route.path, method });
+            for (route.handlers_chain.items) |handler| {
+                std.debug.print("handler: {any}\r\n", .{@TypeOf(handler)});
+            }
+        }
+    }
 
     try z.run();
 }
@@ -21,18 +36,18 @@ fn helloWorld(ctx: *zinc.Context) anyerror!void {
 }
 
 fn logger(ctx: *zinc.Context) anyerror!void {
-    const t = std.time.milliTimestamp();
-    std.debug.print("logger1\n", .{});
-
+    const t = std.time.microTimestamp();
+    std.debug.print("logger1 1\n", .{});
     std.time.sleep(1);
     // before request
     try ctx.next();
     // after request
-    const latency = std.time.milliTimestamp() - t;
+    const latency = std.time.microTimestamp() - t;
     std.debug.print("latency: {}\n", .{latency});
 }
 
 fn logger2(ctx: *zinc.Context) anyerror!void {
-    try ctx.next();
     std.debug.print("logger2\n", .{});
+    try ctx.json(.{ .message = "logger2" }, .{});
+    try ctx.next();
 }
