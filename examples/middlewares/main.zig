@@ -5,8 +5,8 @@ pub fn main() !void {
     var z = try zinc.init(.{ .port = 8080 });
 
     var middleware = zinc.Middleware.init(.{});
-    try middleware.add(&.{}, logger);
-    try middleware.add(&.{}, logger2);
+    try middleware.any(&.{}, logger);
+    try middleware.any(&.{}, logger2);
 
     try z.use(middleware);
 
@@ -15,16 +15,17 @@ pub fn main() !void {
     try router.get("/", helloWorld);
     try router.get("/", logger);
     try router.get("/", logger2);
+    try router.get("/", logger2);
+
+    try router.post("/", logger2);
     try router.post("/", logger2);
 
-    try router.use("*", logger);
+    // try router.use("*", logger);
 
     for (router.getRoutes().items) |route| {
-        for (route.methods) |method| {
-            std.debug.print("route {s} method: {any}\r\n", .{ route.path, method });
-            for (route.handlers_chain.items) |handler| {
-                std.debug.print("handler: {any}\r\n", .{@TypeOf(handler)});
-            }
+        std.debug.print("route {s} method: {any}\r\n", .{ route.path, route.method });
+        for (route.handlers_chain.items) |handler| {
+            std.debug.print("handler: {any}\r\n", .{handler});
         }
     }
 

@@ -12,12 +12,10 @@ pub fn main() !void {
     var router = z.getRouter();
     try router.get("/hello", hello);
     try router.post("/hi", hi);
-    try router.add(&.{ .GET, .POST }, "/ping", pong);
+    try router.addAny(&.{ .GET, .POST }, "/ping", pong);
 
     for (router.getRoutes().items) |r| {
-        for (r.methods) |m| {
-            std.debug.print("{s} | {s}\n", .{ @tagName(m), r.path });
-        }
+        std.debug.print("{s} | {s}\n", .{ @tagName(r.method), r.path });
     }
 
     try z.run();

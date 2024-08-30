@@ -6,16 +6,8 @@ pub fn main() !void {
 
     var router = z.getRouter();
 
-    try router.get("/", index);
-    try router.add(&.{ .GET, .HEAD }, "/favicon.ico", favicon);
+    try router.staticFile("/", "examples/favicon/index.html");
+    try router.staticFile("/favicon.ico", "examples/favicon/favicon.ico");
 
     try z.run();
-}
-
-pub fn index(ctx: *zinc.Context) anyerror!void {
-    try ctx.file("examples/favicon/index.html", .{});
-}
-
-pub fn favicon(ctx: *zinc.Context) anyerror!void {
-    try ctx.file("examples/favicon/favicon.ico", .{});
 }

@@ -7,8 +7,7 @@ pub fn main() !void {
     var router = z.getRouter();
     try router.get("/hello", helloWorld);
     try router.post("/hi", hi);
-    try router.add(&.{ .GET, .POST }, "/ping", pong);
-
+    try router.addAny(&.{ .GET, .POST }, "/ping", pong);
     try z.run();
 }
 

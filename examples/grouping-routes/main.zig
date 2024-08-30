@@ -11,10 +11,11 @@ pub fn main() !void {
     // /api/v1
     try group.get("/v1", v1);
     // /api/v2
-    try group.get("/v2", v2);
+    try group.post("/v2", v2);
+    try group.any("/v3", v3);
 
     for (router.getRoutes().items) |route| {
-        std.debug.print("Route: {s}\n", .{route.path});
+        std.debug.print("Route: {s} {s}\n", .{ @tagName(route.method), route.path });
     }
 
     try z.run();
@@ -27,13 +28,13 @@ fn api(ctx: *zinc.Context) anyerror!void {
 }
 
 fn v1(ctx: *zinc.Context) anyerror!void {
-    try ctx.json(.{
-        .version = "v1",
-    }, .{});
+    try ctx.json(.{ .version = "v1" }, .{});
 }
 
 fn v2(ctx: *zinc.Context) anyerror!void {
-    try ctx.json(.{
-        .version = "v2",
-    }, .{});
+    try ctx.json(.{ .version = "v2" }, .{});
+}
+
+fn v3(ctx: *zinc.Context) anyerror!void {
+    try ctx.json(.{}, .{});
 }
