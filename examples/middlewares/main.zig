@@ -5,22 +5,14 @@ pub fn main() !void {
     var z = try zinc.init(.{ .port = 8080 });
 
     var middleware = zinc.Middleware.init(.{});
-    try middleware.any(&.{}, logger);
-    try middleware.any(&.{}, logger2);
-
+    try middleware.add(.GET, logger);
+    try middleware.add(.GET, logger2);
+    try middleware.add(.GET, logger3);
     try z.use(middleware);
 
     var router = z.getRouter();
 
     try router.get("/", helloWorld);
-    try router.get("/", logger);
-    try router.get("/", logger2);
-    try router.get("/", logger2);
-
-    try router.post("/", logger2);
-    try router.post("/", logger2);
-
-    // try router.use("*", logger);
 
     for (router.getRoutes().items) |route| {
         std.debug.print("route {s} method: {any}\r\n", .{ route.path, route.method });
@@ -43,6 +35,7 @@ fn logger(ctx: *zinc.Context) anyerror!void {
     // before request
     try ctx.next();
     // after request
+    // _ = ctx;
     const latency = std.time.microTimestamp() - t;
     std.debug.print("latency: {}\n", .{latency});
 }
@@ -50,5 +43,11 @@ fn logger(ctx: *zinc.Context) anyerror!void {
 fn logger2(ctx: *zinc.Context) anyerror!void {
     std.debug.print("logger2\n", .{});
     try ctx.json(.{ .message = "logger2" }, .{});
+    try ctx.next();
+}
+
+fn logger3(ctx: *zinc.Context) anyerror!void {
+    std.debug.print("logger3\n", .{});
+    try ctx.json(.{ .message = "logger3" }, .{});
     try ctx.next();
 }

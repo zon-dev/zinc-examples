@@ -6,13 +6,14 @@ pub fn main() !void {
 
     var router = z.getRouter();
 
+
+    var group = try router.group("/api");
     // /api
-    var group = try router.group("/api", api);
+    try group.get("", api);
     // /api/v1
     try group.get("/v1", v1);
     // /api/v2
     try group.post("/v2", v2);
-    try group.any("/v3", v3);
 
     for (router.getRoutes().items) |route| {
         std.debug.print("Route: {s} {s}\n", .{ @tagName(route.method), route.path });
