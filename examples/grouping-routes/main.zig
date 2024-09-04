@@ -6,7 +6,6 @@ pub fn main() !void {
 
     var router = z.getRouter();
 
-
     var group = try router.group("/api");
     // /api
     try group.get("", api);
