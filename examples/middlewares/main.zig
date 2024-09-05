@@ -8,21 +8,20 @@ pub fn main() !void {
     try z.use(&.{ logger, logger2, logger3, logger4 });
 
     var router = z.getRouter();
-
     try router.get("/", helloWorld);
 
-    for (router.getRoutes().items) |route| {
-        std.debug.print("route {s} method: {any}\r\n", .{ route.path, route.method });
-        for (route.handlers_chain.items) |handler| {
-            std.debug.print("handler: {any}\r\n", .{handler});
-        }
-    }
+    // for (router.getRoutes().items) |route| {
+    //     std.debug.print("route {s} method: {any}\r\n", .{ route.path, route.method });
+    //     for (route.handlers_chain.items) |handler| {
+    //         std.debug.print("handler: {any}\r\n", .{handler});
+    //     }
+    // }
 
     try z.run();
 }
 
 fn helloWorld(ctx: *zinc.Context) anyerror!void {
-    std.debug.print("helloWorld\n", .{});
+    std.debug.print("Hello, World!\n", .{});
     try ctx.json(.{ .message = "Hello, World!" }, .{});
 }
 
@@ -33,10 +32,8 @@ fn logger(ctx: *zinc.Context) anyerror!void {
     // before request
     try ctx.next();
     // after request
-    // _ = ctx;
     const latency = std.time.microTimestamp() - t;
     std.debug.print("latency: {}\n", .{latency});
-    std.debug.print("logger1 done...\n", .{});
 }
 
 fn logger2(ctx: *zinc.Context) anyerror!void {
