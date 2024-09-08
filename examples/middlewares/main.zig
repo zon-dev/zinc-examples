@@ -1,6 +1,5 @@
 const zinc = @import("zinc");
 const std = @import("std");
-
 pub fn main() !void {
     var z = try zinc.init(.{ .port = 8080 });
 
@@ -10,12 +9,17 @@ pub fn main() !void {
     var router = z.getRouter();
     try router.get("/", helloWorld);
 
-    // for (router.getRoutes().items) |route| {
-    //     std.debug.print("route {s} method: {any}\r\n", .{ route.path, route.method });
-    //     for (route.handlers_chain.items) |handler| {
-    //         std.debug.print("handler: {any}\r\n", .{handler});
-    //     }
-    // }
+    for (router.getRoutes().items) |route| {
+        std.debug.print("method: {s} route {s} \r\n", .{ @tagName(route.method), route.path });
+        // for (route.handlers_chain.items) |handler| {
+        //     // std.debug.print("handler: {s}\r\n", .{@typeName(@TypeOf(handler))});
+        //     // std.debug.print("handler: {s}\r\n", .{nameOf.Fn(handler)});
+        //     std.debug.print("{s}\r\n", .{handler});
+        //     // inline for (std.meta.fields(@TypeOf(handler))) |field| {
+        //     // std.debug.print("field: {any}\r\n", .{field});
+        //     // }
+        // }
+    }
 
     try z.run();
 }
@@ -33,23 +37,24 @@ fn logger(ctx: *zinc.Context) anyerror!void {
     try ctx.next();
     // after request
     const latency = std.time.microTimestamp() - t;
-    std.debug.print("latency: {}\n", .{latency});
+    std.debug.print("Done all. latency: {}\n", .{latency});
 }
-
 fn logger2(ctx: *zinc.Context) anyerror!void {
     std.debug.print("logger2\n", .{});
     try ctx.json(.{ .message = "logger2" }, .{});
     try ctx.next();
 }
-
 fn logger3(ctx: *zinc.Context) anyerror!void {
     std.debug.print("logger3\n", .{});
-    try ctx.json(.{ .message = "logger3" }, .{});
+    // Invoke next handler (logger4) in the chain.
     try ctx.next();
+    // This line is executed after the next handler in the chain.
+    std.debug.print("logger3 done.\n", .{});
 }
-
 fn logger4(ctx: *zinc.Context) anyerror!void {
     std.debug.print("logger4\n", .{});
-    try ctx.json(.{ .message = "logger4" }, .{});
+    try ctx.html("<h1>logger4<h1>", .{});
+
+    // Invoke the last handler (helloWorld) in the chain.
     try ctx.next();
 }
