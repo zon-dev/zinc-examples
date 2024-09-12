@@ -11,16 +11,8 @@ pub fn main() !void {
 
     for (router.getRoutes().items) |route| {
         std.debug.print("method: {s} route {s} \r\n", .{ @tagName(route.method), route.path });
-        // for (route.handlers_chain.items) |handler| {
-        //     // std.debug.print("handler: {s}\r\n", .{@typeName(@TypeOf(handler))});
-        //     // std.debug.print("handler: {s}\r\n", .{nameOf.Fn(handler)});
-        //     std.debug.print("{s}\r\n", .{handler});
-        //     // inline for (std.meta.fields(@TypeOf(handler))) |field| {
-        //     // std.debug.print("field: {any}\r\n", .{field});
-        //     // }
-        // }
+        std.debug.print("handlers: {d} \r\n", .{route.handlers.items.len});
     }
-
     try z.run();
 }
 

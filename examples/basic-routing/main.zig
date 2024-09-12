@@ -8,6 +8,15 @@ pub fn main() !void {
     try router.get("/hello", helloWorld);
     try router.post("/hi", hi);
     try router.addAny(&.{ .GET, .POST }, "/ping", pong);
+
+    // add a group
+    var group = try router.group("/user");
+    try group.get("/login", user);
+    try group.post("/logout", user);
+
+    // print the router
+    router.printRouter();
+
     try z.run();
 }
 
@@ -21,4 +30,8 @@ fn hi(ctx: *zinc.Context) anyerror!void {
 
 fn pong(ctx: *zinc.Context) anyerror!void {
     try ctx.text("pong!", .{});
+}
+
+fn user(ctx: *zinc.Context) anyerror!void {
+    try ctx.text("User group.", .{});
 }
