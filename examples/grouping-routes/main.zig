@@ -7,6 +7,7 @@ pub fn main() !void {
     var router = z.getRouter();
 
     var group = try router.group("/api");
+
     // /api
     try group.get("", api);
 
@@ -30,7 +31,7 @@ pub fn main() !void {
 }
 
 fn api(ctx: *zinc.Context) anyerror!void {
-    try ctx.json(.{ .message = "api home" }, .{});
+    try ctx.json(.{ .message = "api" }, .{});
 }
 fn v1(ctx: *zinc.Context) anyerror!void {
     try ctx.json(.{ .version = "v1" }, .{});
