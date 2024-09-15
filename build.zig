@@ -19,6 +19,7 @@ pub fn build(b: *std.Build) void {
         .{ .name = "map-as-post-form", .src = "examples/map-as-post-form/main.zig" },
         .{ .name = "map-as-query-parameters", .src = "examples/map-as-query-parameters/main.zig" },
         .{ .name = "middlewares", .src = "examples/middlewares/main.zig" },
+        .{ .name = "multithreading", .src = "examples/multithreading/main.zig" },
         .{ .name = "ping", .src = "examples/ping/main.zig" },
         .{ .name = "not-found", .src = "examples/not-found/main.zig" },
         .{ .name = "redirects", .src = "examples/redirects/main.zig" },
@@ -46,7 +47,7 @@ pub fn build(b: *std.Build) void {
             run_cmd.addArgs(args);
         }
         const step_name = "run-" ++ exe_name;
-        const run_step = b.step(step_name, "Run the app");
+        const run_step = b.step(step_name, "Run the app " ++ exe_name);
         run_step.dependOn(&run_cmd.step);
     }
 }

@@ -3,6 +3,7 @@ const zinc = @import("zinc");
 
 pub fn main() !void {
     var z = try zinc.init(.{ .port = 8080 });
+    defer z.deinit();
 
     var router = z.getRouter();
 
@@ -23,7 +24,8 @@ pub fn main() !void {
     // /api/v2/user/login
     try v2group.addAny(&.{ .GET, .POST }, "/login", v2);
     // /api/v2/user/logout
-    try v2group.addAny(&.{ .GET, .POST }, "/logout", v2);
+    try v2group.get("/logout", v2);
+    try v2group.post("/logout", v2);
 
     router.printRouter();
 
