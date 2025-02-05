@@ -9,7 +9,6 @@ pub fn main() !void {
 
     try router.staticFile("/", "examples/serving-static-files/index.html");
     try router.staticDir("/assets", "examples/serving-static-files/assets");
-    // try router.staticFile("/assets/style.css", "examples/serving-static-files/assets/style.css");
 
     router.printRouter();
 

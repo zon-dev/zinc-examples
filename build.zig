@@ -15,6 +15,8 @@ pub fn build(b: *std.Build) void {
     }{
         .{ .name = "basic", .src = "examples/basic/main.zig" },
         .{ .name = "basic-routing", .src = "examples/basic-routing/main.zig" },
+        .{ .name = "benchmark", .src = "examples/benchmark/main.zig" },
+        .{ .name = "cors", .src = "examples/cors/main.zig" },
         .{ .name = "json", .src = "examples/json/main.zig" },
         .{ .name = "map-as-post-form", .src = "examples/map-as-post-form/main.zig" },
         .{ .name = "map-as-query-parameters", .src = "examples/map-as-query-parameters/main.zig" },
@@ -22,6 +24,7 @@ pub fn build(b: *std.Build) void {
         .{ .name = "multithreading", .src = "examples/multithreading/main.zig" },
         .{ .name = "ping", .src = "examples/ping/main.zig" },
         .{ .name = "not-found", .src = "examples/not-found/main.zig" },
+        .{ .name = "param-in-path", .src = "examples/param-in-path/main.zig" },
         .{ .name = "redirects", .src = "examples/redirects/main.zig" },
         .{ .name = "grouping-routes", .src = "examples/grouping-routes/main.zig" },
         .{ .name = "serving-static-files", .src = "examples/serving-static-files/main.zig" },

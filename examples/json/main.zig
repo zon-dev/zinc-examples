@@ -1,12 +1,29 @@
 const zinc = @import("zinc");
+const std = @import("std");
 
 pub fn main() !void {
-    var z = try zinc.init(.{ .port = 8080 });
+    var gpa = std.heap.GeneralPurposeAllocator(.{
+        // .thread_safe = true,
+    }){};
+    const allocator = gpa.allocator();
+
+    var z = try zinc.init(.{
+        .port = 8080,
+        .allocator = allocator,
+        // .num_threads = 2,
+        // .num_threads = 1,
+
+        // .force_nonblocking = false,
+    });
+    defer z.deinit();
 
     var router = z.getRouter();
     try router.get("/", helloWorld);
 
+    std.debug.print("Starting server on {any}\n", .{z.getAddress()});
     try z.run();
+    std.debug.print("Server stopped\n", .{});
+    // z.wait();
 }
 
 fn helloWorld(ctx: *zinc.Context) anyerror!void {

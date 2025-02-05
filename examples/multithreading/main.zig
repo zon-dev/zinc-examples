@@ -7,6 +7,7 @@ pub fn main() !void {
         .num_threads = 255,
         .stack_size = 10 * 1024 * 1024,
     });
+    defer z.deinit();
 
     var router = z.getRouter();
     var group = try router.group("/api");

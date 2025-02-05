@@ -3,6 +3,7 @@ const std = @import("std");
 
 pub fn main() !void {
     var z = try zinc.init(.{ .port = 8080 });
+    defer z.deinit();
 
     var router = z.getRouter();
     try router.get("/test", redirect);

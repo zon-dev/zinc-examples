@@ -2,9 +2,15 @@ const std = @import("std");
 const zinc = @import("zinc");
 
 pub fn main() !void {
-    var z = try zinc.init(.{ .port = 8080 });
+    var z = try zinc.init(.{
+        .port = 5882,
+        .force_nonblocking = false,
+        .num_threads = 254,
+    });
 
     var router = z.getRouter();
+    try router.get("/", home);
+
     try router.get("/hello", helloWorld);
     try router.post("/hi", hi);
     try router.addAny(&.{ .GET, .POST }, "/ping", pong);
@@ -25,6 +31,10 @@ pub fn main() !void {
     try z.run();
 }
 
+fn home(ctx: *zinc.Context) anyerror!void {
+    try ctx.setHeader("Connection", "keep-alive");
+    try ctx.text("hello world!", .{});
+}
 fn helloWorld(ctx: *zinc.Context) anyerror!void {
     try ctx.json(.{ .message = "Hello, World!" }, .{});
 }
