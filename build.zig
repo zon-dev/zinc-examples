@@ -36,9 +36,11 @@ pub fn build(b: *std.Build) void {
 
         const exe = b.addExecutable(.{
             .name = exe_name,
-            .root_source_file = b.path(execfg.src),
-            .target = target,
-            .optimize = optimize,
+            .root_module = b.createModule(.{
+                .root_source_file = b.path(execfg.src),
+                .target = target,
+                .optimize = optimize,
+            }),
         });
 
         exe.root_module.addImport("zinc", zinc.module("zinc"));

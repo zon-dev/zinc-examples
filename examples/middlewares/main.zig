@@ -19,7 +19,7 @@ fn helloWorld(ctx: *zinc.Context) anyerror!void {
 fn logger(ctx: *zinc.Context) anyerror!void {
     const t = std.time.microTimestamp();
     std.debug.print("logger1\n", .{});
-    std.time.sleep(1);
+    std.Thread.sleep(std.time.ns_per_s * 1000);
     // before request
     try ctx.next();
     // after request

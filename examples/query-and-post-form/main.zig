@@ -19,7 +19,7 @@ fn queryAndForm(ctx: *zinc.Context) anyerror!void {
     const id = try ctx.queryString("id");
     const messages = try ctx.queryValues("message");
 
-    const form = ctx.getPostFormMap().?;
+    const form = try ctx.getPostFormMap() orelse return ctx.text("No form data", .{});
     const name = form.get("name").?;
     const friend = form.get("friend").?;
 

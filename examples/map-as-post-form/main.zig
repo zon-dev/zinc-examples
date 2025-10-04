@@ -14,7 +14,7 @@ pub fn main() !void {
 /// Content-Type: application/x-www-form-urlencoded
 /// name[frist]=jack&name[last]=mike
 fn queryParamters(ctx: *zinc.Context) anyerror!void {
-    var name = ctx.postFormMap("name") orelse return ctx.text("name not found", .{});
+    var name = try ctx.postFormMap("name") orelse return ctx.text("name not found", .{});
     const frist_name = name.get("frist").?;
     const last_name = name.get("last").?;
 
