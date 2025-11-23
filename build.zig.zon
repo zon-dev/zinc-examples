@@ -3,7 +3,9 @@
     .fingerprint = 0xb14ff47f0aae07f0,
     .version = "0.1.1-alpha.1",
     .dependencies = .{
-        .zinc = .{ .path = "../zinc" },
+        .zinc = .{
+           .path = "../zinc"
+        },
     },
     .paths = .{
         "",

@@ -17,14 +17,15 @@ fn helloWorld(ctx: *zinc.Context) anyerror!void {
     try ctx.text("Hello, World!", .{});
 }
 fn logger(ctx: *zinc.Context) anyerror!void {
-    const t = std.time.microTimestamp();
+    const t = try std.time.Instant.now();
     std.debug.print("logger1\n", .{});
-    std.Thread.sleep(std.time.ns_per_s * 1000);
     // before request
     try ctx.next();
     // after request
-    const latency = std.time.microTimestamp() - t;
-    std.debug.print("Done all. latency: {}\n", .{latency});
+    const now = try std.time.Instant.now();
+    const latency_ns = now.since(t);
+    const latency_us = latency_ns / std.time.ns_per_us;
+    std.debug.print("Done all. latency: {}\n", .{latency_us});
 }
 fn logger2(ctx: *zinc.Context) anyerror!void {
     std.debug.print("logger2\n", .{});
