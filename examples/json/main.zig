@@ -10,10 +10,6 @@ pub fn main() !void {
     var z = try zinc.init(.{
         .port = 8080,
         .allocator = allocator,
-        // .num_threads = 2,
-        // .num_threads = 1,
-
-        // .force_nonblocking = false,
     });
     defer z.deinit();
 

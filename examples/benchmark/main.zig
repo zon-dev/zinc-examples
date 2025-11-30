@@ -10,7 +10,7 @@ pub fn main() !void {
         .num_threads = 16 * @as(u8, @intCast(std.Thread.getCpuCount() catch 1)),
         .read_buffer_len = 10 * 1024,
         .stack_size = 10 * 1024 * 1024,
-        // .max_connections = 1000,
+        .max_conn = 10000,
     });
     defer z.deinit();
 

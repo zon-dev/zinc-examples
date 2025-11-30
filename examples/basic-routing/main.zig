@@ -4,7 +4,6 @@ const zinc = @import("zinc");
 pub fn main() !void {
     var z = try zinc.init(.{
         .port = 5882,
-        .force_nonblocking = false,
         .num_threads = 254,
     });
 
