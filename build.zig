@@ -9,6 +9,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
+    const test_step = b.step("test", "Build all examples");
+
     inline for ([_]struct {
         name: []const u8,
         src: []const u8,
@@ -48,11 +50,11 @@ pub fn build(b: *std.Build) void {
         b.installArtifact(exe);
         const run_cmd = b.addRunArtifact(exe);
         run_cmd.step.dependOn(b.getInstallStep());
-        if (b.args) |args| {
-            run_cmd.addArgs(args);
-        }
+        // `zig build run-{name} -- arg1 arg2`
+        run_cmd.addPassthruArgs();
         const step_name = "run-" ++ exe_name;
         const run_step = b.step(step_name, "Run the app " ++ exe_name);
         run_step.dependOn(&run_cmd.step);
+        test_step.dependOn(&exe.step);
     }
 }

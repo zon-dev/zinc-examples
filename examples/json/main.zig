@@ -2,9 +2,8 @@ const zinc = @import("zinc");
 const std = @import("std");
 
 pub fn main() !void {
-    var gpa = std.heap.GeneralPurposeAllocator(.{
-        // .thread_safe = true,
-    }){};
+    var gpa: std.heap.DebugAllocator(.{}) = .init;
+    defer _ = gpa.deinit();
     const allocator = gpa.allocator();
 
     var z = try zinc.init(.{

@@ -17,14 +17,14 @@ fn helloWorld(ctx: *zinc.Context) anyerror!void {
     try ctx.text("Hello, World!", .{});
 }
 fn logger(ctx: *zinc.Context) anyerror!void {
-    const t = try std.time.Instant.now();
+    const io = std.Io.Threaded.global_single_threaded.io();
+    const t = std.Io.Clock.now(.awake, io);
     std.debug.print("logger1\n", .{});
     // before request
     try ctx.next();
     // after request
-    const now = try std.time.Instant.now();
-    const latency_ns = now.since(t);
-    const latency_us = latency_ns / std.time.ns_per_us;
+    const now = std.Io.Clock.now(.awake, io);
+    const latency_us = @divTrunc(now.nanoseconds - t.nanoseconds, std.time.ns_per_us);
     std.debug.print("Done all. latency: {}\n", .{latency_us});
 }
 fn logger2(ctx: *zinc.Context) anyerror!void {
